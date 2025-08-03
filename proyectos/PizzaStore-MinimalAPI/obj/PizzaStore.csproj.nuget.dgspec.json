@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\josem\\PizzaStore\\PizzaStore.csproj": {}
+    "C:\\Users\\josem\\fullstack-dotnet-learning\\proyectos\\PizzaStore-MinimalAPI\\PizzaStore.csproj": {}
   },
   "projects": {
-    "C:\\Users\\josem\\PizzaStore\\PizzaStore.csproj": {
+    "C:\\Users\\josem\\fullstack-dotnet-learning\\proyectos\\PizzaStore-MinimalAPI\\PizzaStore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\josem\\PizzaStore\\PizzaStore.csproj",
+        "projectUniqueName": "C:\\Users\\josem\\fullstack-dotnet-learning\\proyectos\\PizzaStore-MinimalAPI\\PizzaStore.csproj",
         "projectName": "PizzaStore",
-        "projectPath": "C:\\Users\\josem\\PizzaStore\\PizzaStore.csproj",
+        "projectPath": "C:\\Users\\josem\\fullstack-dotnet-learning\\proyectos\\PizzaStore-MinimalAPI\\PizzaStore.csproj",
         "packagesPath": "C:\\Users\\josem\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\josem\\PizzaStore\\obj\\",
+        "outputPath": "C:\\Users\\josem\\fullstack-dotnet-learning\\proyectos\\PizzaStore-MinimalAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

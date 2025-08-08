@@ -1,83 +1,87 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { TextField, Button, Box, List, ListItem, ListItemText, ListItemSecondaryAction, IconButton } from '@mui/material';
+import { Delete, Edit } from '@mui/icons-material';
 
-function PizzaList({ name, data, onCreate, onUpdate, onDelete, error})
-{
-    //formData state holds the values for the pizza form
-    const [formData, setFormData] = useState({id: '', name: '', description: ''});
-   // editingId state holds the id of the pizza being edited or ir we are creating a new pizza
-    const [editingId, setEditingId] = useState(null);
+function PizzaList({ name, data, onCreate, onUpdate, onDelete, error }) {
 
-    const handleFormChange = (event) => {
-        //updates formData state as the user types in the form
-        //identifies the input field that has changed by its name attribute
-        const { name, value } = event.target;
-        setFormData(prevData => ({ //prevData is to ensure it uses the most recent state
-            ...prevData, //this copies all existing data fields unchanged so its only the changed field that gets updated
-            [name]: value   // updates only the field matching the inpus´s name to the new entered value
-        }));
-    };
+  console.log(`PizzaList: ${JSON.stringify(data)}`);
 
-    //this function is triggered when the form is submitted to create or update a pizza
-    const handleSubmit = (event) => {
-        //in ASP apps, the default behavior of a form submission is to reload the page
-        //which we dont want because it would lose the current state (information) , we need to prevent that and process the data inside the app without reloading the page
-        event.preventDefault(); //this prevents the default form submission behavior
-        if (editingId){
-            onUpdate(formData); //if editingId is set, we are updating an existing pizza
-            setEditingId(null); //reset editingId to null after updating to stop editing mode and clear the form
-        } else {
-            onCreate(formData); //if editingId is not set, we are creating a new pizza
-        }
-        setFormData({id: '', name: '', description: ''}); //reset formData to clear the form after submission
-    };
+  const [formData, setFormData] = useState({ id: '', name: '', description: '' });
+  const [editingId, setEditingId] = useState(null);
 
-    const handleEdit = (pizzaItem) => { //pizzaItem is the pizza being edited, it contains properties like id, name, description
-        setEditingId(pizzaItem.id); //to track that youre in editing mode for this specific pizza, differentiate between creating and editing an existing pizza
-        setFormData({ //set formData to the values of the pizza being edited
-            id: pizzaItem.id,
-            name: pizzaItem.name,
-            description: pizzaItem.description
-        });
+  useEffect(() => {
+    if (editingId === null) {
+      setFormData({ id: '', name: '', description: '' });
+    } else {
+      const currentItem = data.find(item => item.id === editingId);
+      setFormData(currentItem);
+    }
+  }, [editingId, data]);
+
+  const handleFormChange = (event) => {
+
+    console.log(`handleFormChange: ${event.target.name} ${event.target.value}`)
+
+    const { name, value } = event.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    console.log(`formData: ${JSON.stringify(formData)}`)
+
+    if (editingId !== null) {
+      console.log(`update item: ${JSON.stringify(formData)}`)
+      onUpdate(formData);
+    } else {
+      onCreate(formData);
     }
 
-    const handleCancelEdit = () => { //this function is called when the user clicks the cancel button while editing a pizza
-        setEditingId(null); //reset editingId to null to stop editing mode
-        setFormData({id: '', name: '', description: ''}); //reset formData to clear the form
-    }; 
+    setFormData({ id: '', name: '', description: '' });
+    setEditingId(null);
+  };
 
-    return (
-        <div>
-      <h2>New {name}</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          value={formData.name}
-          onChange={handleFormChange}
-        />
-        <input
-          type="text"
-          name="description"
-          placeholder="Description"
-          value={formData.description}
-          onChange={handleFormChange}
-        />
-        <button type="submit">{editingId ? 'Update' : 'Create'}</button>
-        {editingId && <button type="button" onClick={handleCancelEdit}>Cancel</button>}
+  const handleEdit = (id) => {
+    setEditingId(id);
+  };
+
+  const handleCancel = () => {
+    setFormData({ id: '', name: '', description: '' });
+    setEditingId(null);
+  };
+
+  return (
+    <Box className="Box" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <h2>{name}</h2>
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 8}}>
+        <TextField label="Name" name="name" value={formData.name} onChange={handleFormChange} />
+        <TextField label="Description" name="description" value={formData.description} onChange={handleFormChange} />
+        <Button sx={{ mr: 1 }} variant="contained" type="submit">{editingId === null ? 'Create' : 'Update'}</Button>
+        {editingId !== null && <Button variant="contained" color="secondary" onClick={handleCancel}>Cancel</Button>}
       </form>
-      {error && <div>{error.message}</div>}
-      <h2>{name}s</h2>
-      <ul>
+      <List sx={{ width: '100%', maxWidth: 360 }}>
         {data.map(item => (
-          <li key={item.id}>
-            <div>{item.name} - {item.description}</div>
-            <div><button onClick={() => handleEdit(item)}>Edit</button>
-            <button onClick={() => onDelete(item.id)}>Delete</button></div>
-          </li>
+          <ListItem key={item.id} secondaryAction={
+            <>
+              <IconButton edge="end" aria-label="edit" onClick={() => handleEdit(item.id)}>
+                <Edit />
+              </IconButton>
+              <IconButton edge="end" aria-label="delete" onClick={() => onDelete(item.id)}>
+                <Delete />
+              </IconButton>
+            </>
+          }>
+            <ListItemText primary={item.name} secondary={item.description} />
+          </ListItem>
         ))}
-      </ul>
-    </div>
+      </List>
+      {error && <p>{error}</p>}
+    </Box>
   );
 }
+
 export default PizzaList;

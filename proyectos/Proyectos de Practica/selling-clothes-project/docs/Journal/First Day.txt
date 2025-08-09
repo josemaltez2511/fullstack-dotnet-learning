@@ -1,0 +1,44 @@
+Work Journal – Date: 8 August 2025
+
+Goal for the day:
+Set up and get the backend of the Selling Clothes project running inside a Docker container, resolving issues encountered during the build and execution process.
+
+Activities performed:
+
+Prepared the development environment for containerizing an ASP.NET Core application using .NET 9.
+
+Made adjustments to ensure the server listens correctly on the necessary port inside the container and allows external connections.
+
+Created and optimized the Dockerfile for efficiently building, publishing, and running the application.
+
+Added a .dockerignore file to exclude files and folders that caused conflicts or redundancy during the build.
+
+Manually cleaned local build folders to remove artifacts that interfered with the process.
+
+Successfully built the Docker image after fixing errors related to duplicate files and incorrect paths.
+
+Ran and tested the container, confirming the API responds properly to external requests through mapped ports.
+
+Managed Docker containers to avoid unintended creation of multiple instances and learned the correct workflow to start and stop containers.
+
+Issues encountered and solutions applied:
+
+Build errors caused by duplicate files automatically generated during the publish step inside the container.
+Solution: Configured the project to avoid conflicting auto-generated files and adjusted the Docker context to exclude output folders using .dockerignore.
+
+Confusion and failures due to unexpected nested folder structures from Docker copy commands during image build.
+Solution: Modified Dockerfile COPY instructions to properly align file paths and prepare a clean build environment.
+
+Inability to access the application from the browser because the server inside the container was listening only on localhost by default.
+Solution: Explicitly configured the server to listen on all network interfaces and the correct port, and set the necessary environment variable in Docker for accessibility.
+
+Accumulation of multiple running containers caused by repeatedly running the Docker run command without managing existing containers, leading to port conflicts and confusion.
+Solution: Understood and adopted proper container lifecycle management — stopping, starting, and reusing containers without creating unnecessary new ones.
+
+Final outcome:
+
+A functional Docker image was built that runs the backend application correctly, accessible through the mapped local port. The API responds as expected when tested from a browser, and the Docker environment is well controlled and manageable.
+
+Next recommended step:
+
+Proceed with further backend development or start working on the frontend, integrating it effectively with the Dockerized backend. Also consider automation and deployment preparations.

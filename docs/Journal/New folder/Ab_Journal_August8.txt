@@ -1,0 +1,25 @@
+Hi there, this is Abraham. (8/8/2025)
+I´ve been practicing a lot and learning a lot of new stuff, well not that new, but refreshing some concepts to be updated to today's demands. I feel I am not new to this, as I was two months ago when I was feeling burned out, not knowing where to start, but now I've set my roadmap to become a software engineer, applying all the tips, insights, and advice that some good people that I admired gave me 
+
+So far, I´ve covered some Microsoft courses. Here are some key concepts I've learned, courses, especially related to building a web application with backend APIs and frontend:
+
+API Design: Creating HTTP endpoints to handle CRUD operations (Create, Read, Update, Delete) with methods like GET, POST, PUT, DELETE.
+
+Frontend Development: Building user interfaces for different user roles, interacting with backend APIs.
+
+Backend Development: Handling business logic, data processing, and serving API endpoints.
+
+Database Design: Structuring data storage for users and products.
+
+User Roles and Permissions: Managing different users (e.g., sellers, buyers) with distinct functionalities.
+
+Data Models: Defining properties/attributes like Brand, Article Type, Size, Color, Price.
+
+State Management: Keeping track of user sessions, shopping cart items.
+
+Testing and Refinement: Iteratively testing features and improving code.
+
+Documentation: Keeping thorough records of code, decisions, and progress.
+
+So now I will build a project based on what I've learned in these courses, applying these concepts mentioned before 
+

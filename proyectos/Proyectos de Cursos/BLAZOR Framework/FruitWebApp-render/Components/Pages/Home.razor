@@ -1,0 +1,91 @@
+﻿@page "/"
+@rendermode InteractiveServer
+
+<PageTitle>Home</PageTitle>
+
+@* Note: Many of the "class=" instances reference Bootstrap styles. *@
+
+<div class="container p-3">
+
+    <div>
+        <div class="col border-bottom" style="width:80%">
+            <h2 class="display-6">My Fruit List</h2>
+            <p>My favorite fruits and if I have them available.</p>
+        </div>
+    </div>
+
+    @*  The div below contains the Add button. *@
+    
+    <div class="container pt-4">
+        <div class="row" style="width:80%">
+            <div class="col text-end pb-4">
+                <a class="btn btn-primary mx-2 text-end" href="/add" >
+                    Add to list
+                </a>
+            </div>
+        </div>
+    </div>
+
+    @* The table below displays the data retrieved from the API *@
+    <table class="table table-bordered table-striped" style="width:80%">
+        <thead>
+            <tr>
+                <th>Fruit Name</th>
+                <th class="text-center">Available?</th>
+                <th class="text-center">Manage</th>
+            </tr>
+        </thead>
+
+        @* Begin render API data code block *@
+
+<tbody>
+
+    @*comentario*@
+    @foreach (var obj in _fruitList ?? [])
+    {
+        <tr>
+            @*Display the name of the fruit*@
+            <td width="50%">
+                @obj.name
+            </td>
+            @*changin the true/false of instock to Yes/NO*@
+            @{
+                if (@obj.instock)
+                {
+                    <td width="20%" class="text-center">
+                        Yes
+                    </td>
+                }
+                else
+                {
+                    <td  width="20%" class="text-center">
+                        No
+                    </td>
+                }
+            }
+
+            <td width="30%" class="text-center">
+                @*the following code renders the edit and delete button to pass the id
+                to a function that handles the navigation and passes the id to the page*@
+                <div class="w-75 btn-group btn-group-sm" role="group" style="text-align:center">
+                    <button class="btn btn-primary mx-2"  @onclick="() => EditButton(obj.id)">
+                        Edit
+                    </button>>
+                    <button class="btn btn-danger mx-2" @onclick="() => DeleteButton(obj.id)">
+                        Delete
+                    </button>
+
+                </div>
+
+            </td>"
+
+
+        </tr>
+    }
+
+</tbody>
+
+        @* End render API data code block *@
+
+    </table>
+</div>

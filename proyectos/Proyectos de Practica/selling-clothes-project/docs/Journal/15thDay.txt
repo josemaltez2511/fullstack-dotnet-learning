@@ -1,0 +1,22 @@
+Development Diary: May 3
+Today, we focused on refining the data models for your API project, which involved tackling a couple of common challenges in C# and Entity Framework Core. The goal was to eliminate all compiler warnings and ensure that the database behaves exactly as we expect it to.
+
+1. The nullity problem (NullReferenceException) 🐛
+The first major hurdle was compilation warnings related to nullity. The C# compiler was telling us that the string and List<string> properties in your models (Bag.cs, Clothing.cs, etc.) could be null at runtime, which is a common source of errors.
+
+The solution was twofold:
+
+For string properties, we used the required keyword, which tells the compiler that those properties must have a value.
+
+For lists (List<string>), we initialized them directly at the time of declaration (for example, public List<string> ClothingSizes { get; set; } = new List<string>();). This ensures that the list will never be null.
+
+2. The redundant primary key 🔑
+You discovered a very important detail: the classes that inherited from Product (BagProduct, ClothingProduct) had their own primary key (BagProductId, ClothingProductId) in addition to the one they already inherited from the base class (ProductId).
+
+The solution was to remove those redundant keys. This aligns with Entity Framework's default inheritance strategy, called Table-Per-Hierarchy (TPH). With TPH, all your classes (products, bags, clothing) are stored in a single table, and ProductId is the only key needed to identify each of them.
+
+3. Testing the API and Swagger 🌐
+Finally, you realized that even though the API was working, you couldn't see any results when accessing the GET endpoint. The reason is simple: the controller was working correctly, but the database was empty.
+
+Tomorrow, we will use the Swagger interface to interact with your API. I will guide you step by step to use the POST endpoint and create a product. Once you do that, you can go back to the GET endpoint and see that your API now returns data.
+

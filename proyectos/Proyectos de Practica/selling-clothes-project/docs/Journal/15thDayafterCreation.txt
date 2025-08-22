@@ -1,0 +1,12 @@
+Hello, this is Abraham
+
+Today is 22 August 2025. 
+I have now created the main models for all article types, including Clothing, Shoes, Jewelry, Hats, and Watches. I thought it was a good idea that all these models mentioned before should inherit from a main model called Products to apply DRY (Don't Repeat Yourself), but I'm not really sure if it is okay because when I did the connection string to create the DB the system just made a single table database for all Models, I found out that this happens because ASP.NET Core web apps identify that Models (shoes, clothing, jewelry, hats, watches) in the system are inheriting from a main model (Products), so ASP.NET Core applies the TPH strategy (Table Per Hierarchy), it says this strategy makes the system faster in performing queries
+
+It has many pros and cons, but by now, I am not sure if this is okay or if I should use another such as:
+
+** Table Per Type (TPT): Each class (base and derived) maps to its own table. This avoids many nullable columns because specialized properties are stored only in derived tables. However, queries require joins between tables, which may impact performance.
+
+** Table Per Concrete Class (TPC): Each concrete class maps to its own table, including all inherited properties. This eliminates joins and nullable columns but duplicates base properties in multiple tables, increasing redundancy.
+
+As you can see, there are some options, but try to watch the whole picture; it's not good to have many nullable columns in a big table, but we can have faster queries, simplicity with cleaner db and as I found out; flexibility and scalability being much easier to add new kind of articles by just creating new model so EF Core will just add it to the table 

@@ -1,0 +1,15 @@
+Hi, this is Abraham
+
+this is my ASP.NET MVC 4.7.1 project using ADO.NET 
+
+I have completed the core functionality of my ASP.NET MVC application.
+
+I have:
+
+Set up a data repository using ADO.NET.
+
+Built a controller to handle requests.
+
+Created views to display and capture data.
+
+Troubleshot and solved multiple project and database configuration errors.

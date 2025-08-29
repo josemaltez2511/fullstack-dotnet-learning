@@ -1,0 +1,10 @@
+Today's Journal Entry
+Wow, what a day! I feel like I'm really starting to put the pieces together on my ASP.NET project. I started by tackling a bug that was giving me a "Pirce" error in my SQL query—it was just a simple typo, but it taught me to pay close attention to the small details.
+
+From there, I took a massive leap forward by implementing Dependency Injection (DI) using Unity. I learned that DI isn't just a buzzword; it's a critical way to achieve loose coupling in my code. Instead of my controller creating its own repository, Unity now injects it, making my code much more professional and testable.
+
+Then, I focused on adding the Delete functionality to complete the full CRUD cycle. I had to create a new method in my repository and two controller actions—one to show a confirmation page and another to perform the actual deletion. It was a great lesson in why it's so important to ask for user confirmation before deleting data!
+
+The biggest "aha!" moment came from understanding the relationship between Software Architecture, Design Patterns, and Algorithms. I realized they are not the same thing, but a top-down hierarchy: architecture is the overall strategy, design patterns are the component blueprints, and algorithms are the specific, step-by-step instructions. And to top it off, I learned about the Don't Repeat Yourself (DRY) principle and fixed a duplicate method to make my code cleaner.
+
+I'm really proud of the progress I'm making. Each step feels more solid and intentional, and I'm not just coding, I'm building with purpose.

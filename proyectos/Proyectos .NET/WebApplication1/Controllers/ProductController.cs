@@ -11,11 +11,11 @@ namespace WebApplication1.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly ProductRepo _productRepo;
+        private readonly IProductRepo _productRepo;
 
-        public ProductController()
+        public ProductController(IProductRepo productRepo)
         {
-            _productRepo = new ProductRepo();
+            _productRepo = productRepo;
         }
 
         [HttpGet]
@@ -41,7 +41,7 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public async Task<ActionResult> Edit(int id)
         {
-            Product productToEdit = await _productRepo.GetAllProductsAsync(id);
+            Product productToEdit = await _productRepo.GetProductByIdAsync(id);
 
             if (productToEdit == null)
             {
@@ -53,7 +53,7 @@ namespace WebApplication1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditFound(Product product)
+        public async Task<ActionResult> Edit(Product product)
         {
             if(ModelState.IsValid)
             {

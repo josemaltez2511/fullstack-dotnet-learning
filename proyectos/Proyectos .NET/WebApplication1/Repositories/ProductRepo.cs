@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace WebApplication1.Repositories
 {
-    public class ProductRepo
+    public class ProductRepo : IProductRepo
     {
         private readonly string ConnectionString = ConfigurationManager.ConnectionStrings["ProductInventoryDB"].ConnectionString;
 
@@ -68,7 +68,7 @@ namespace WebApplication1.Repositories
             using (SqlConnection conn = new SqlConnection(ConnectionString))
             {
                 await conn.OpenAsync();
-                string IdQuery = "SELECT Id, Name, Quantity, Pirce " +
+                string IdQuery = "SELECT Id, Name, Quantity, Price " +
                     "FROM Products WHERE Id = @Id;";
                 using (SqlCommand command =  new SqlCommand(IdQuery, conn))
                 {
@@ -114,6 +114,21 @@ namespace WebApplication1.Repositories
                     return rowsAffected;
                 }
             }
+        }
+
+        public async Task<int> DeleteProductAsync(int id)
+        {
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                await conn.OpenAsync();
+                string DeleteQuery = "DELETE FROM Products WHERE Id = @Id";
+                using (SqlCommand command = new SqlCommand(DeleteQuery, conn))
+                {
+                    command.Parameters.AddWithValue("@Id",id);
+                    int rowsAffected = await command.ExecuteNonQueryAsync();
+                    return rowsAffected;
+                }
+            } 
         }
     }
 }
